@@ -74,3 +74,19 @@ $GLOBALS['TL_DCA']['tl_page']['fields']['pageImageTitle'] = array
     'eval'          => array('maxlength'=>255, 'tl_class'=>'w50'),
     'sql'           => "varchar(255) NOT NULL default ''",
 );
+
+$GLOBALS['TL_DCA']['tl_page']['fields']['pageVideo'] = array
+(
+    'label'         => &$GLOBALS['TL_LANG']['tl_page']['pageVideo'],
+    'inputType'     => 'fileTree',
+    'exclude'       => true,
+    'eval'          => array('class'=>'clr', 'fieldType'=>'checkbox', 'orderField'=>'pageImageOrder', 'multiple'=>true, 'files'=>true, 'filesOnly'=>true, 'extensions'=> 'mp4,ogg', 'isGallery'=>false),
+    'sql'           => 'blob NULL',
+);
+
+// field is used to store the order of the list of images in pageImage
+$GLOBALS['TL_DCA']['tl_page']['fields']['pageVideoOrder'] = array
+(
+    'eval'          => array('doNotShow'=>true),
+    'sql'           => 'blob NULL',
+);
