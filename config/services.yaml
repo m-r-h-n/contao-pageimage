@@ -8,9 +8,12 @@ services:
                 - [ setContainer, [ '@Psr\Container\ContainerInterface' ] ]
 
     Terminal42\PageimageBundle\PageimageHelper: ~
+    Terminal42\PageimageBundle\PagevideoHelper: ~
 
     Terminal42\PageimageBundle\Controller\PageimageController:
-        arguments: ['@Terminal42\PageimageBundle\PageimageHelper']
+        arguments:
+            - '@Terminal42\PageimageBundle\PageimageHelper'
+            - '@Terminal42\PageimageBundle\PagevideoHelper'
 
     Terminal42\PageimageBundle\EventListener\InsertTagsListener:
         arguments: ['@Terminal42\PageimageBundle\PageimageHelper']
