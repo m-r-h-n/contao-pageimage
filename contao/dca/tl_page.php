@@ -80,7 +80,7 @@ $GLOBALS['TL_DCA']['tl_page']['fields']['pageVideo'] = array
     'label'         => &$GLOBALS['TL_LANG']['tl_page']['pageVideo'],
     'inputType'     => 'fileTree',
     'exclude'       => true,
-    'eval'          => array('class'=>'clr', 'fieldType'=>'checkbox', 'orderField'=>'pageImageOrder', 'multiple'=>true, 'files'=>true, 'filesOnly'=>true, 'extensions'=> 'mp4,ogg', 'isGallery'=>false),
+    'eval'          => array('tl_class'=>'clr', 'fieldType'=>'checkbox', 'orderField'=>'pageImageOrder', 'multiple'=>true, 'files'=>true, 'filesOnly'=>true, 'extensions'=> 'mp4,ogg', 'isGallery'=>false),
     'sql'           => 'blob NULL',
 );
 
