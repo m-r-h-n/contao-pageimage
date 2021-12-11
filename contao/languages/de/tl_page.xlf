@@ -46,6 +46,14 @@
                 <source>Page image</source>
                 <target>Seitenbild</target>
             </trans-unit>
+            <trans-unit id="tl_page.pageVideo.0">
+                <source>Video for this page</source>
+                <target>Video für diese Seite</target>
+            </trans-unit>
+            <trans-unit id="tl_page.pageVideo.1">
+                <source>Please select a video for this page. If you don't choose anything, the video of the parent page might be used.</source>
+                <target>Wählen Sie ein Video für diese Seite. Wenn Sie nichts angeben wird ggf. das Video der übergeordneten Seite verwendet.</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>
