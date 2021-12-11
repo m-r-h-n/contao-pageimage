@@ -5,7 +5,7 @@ use Contao\CoreBundle\DataContainer\PaletteManipulator;
 
 $pm = PaletteManipulator::create()
     ->addLegend('image_legend', 'meta_legend', PaletteManipulator::POSITION_BEFORE, true)
-    ->addField(['pageImage', 'pageImageOverwriteMeta'], 'image_legend', PaletteManipulator::POSITION_APPEND)
+    ->addField(['pageImage', 'pageImageOverwriteMeta','pageVideo'], 'image_legend', PaletteManipulator::POSITION_APPEND)
 ;
 
 foreach ($GLOBALS['TL_DCA']['tl_page']['palettes'] as $name => $palette) {
