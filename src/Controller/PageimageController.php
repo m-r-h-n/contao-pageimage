@@ -123,19 +123,6 @@ class PageimageController extends AbstractFrontendModuleController
         return (array) $result;
     }
 
-    /*
-    private function generateVideo(array $video, ModuleModel $model): array
-    {
-        $video['singleSRC'] = $video['path'];
-        //$image['size'] = $model->imgSize;
-
-        $result = new \stdClass();
-        Controller::addImageToTemplate($result, $video);
-
-        return (array) $result;
-    }
-    */
-
     private function compileMediaQueries(array $picture): array
     {
         $mediaQueries = [];
@@ -184,8 +171,7 @@ class PageimageController extends AbstractFrontendModuleController
             return [];
         }
 
-        $videos = $this->videohelper->findVideosForPage($objPage, (bool) $model->inheritPageImage);
-        //print_r($videos);
+        $videos = $this->videohelper->findForPage($objPage, (bool) $model->inheritPageImage);
         if (null === $videos) {
             return [];
         }

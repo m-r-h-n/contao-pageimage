@@ -18,36 +18,36 @@ class PagevideoHelper
 
     protected static $videosCache = [];
 
-    
-    
+
+
     public function getOneVideoByPageAndIndex(PageModel $page, ?int $index = 0, bool $inherit = true): ?array
     {
         $videos = $this->findVideosForPage($page, $inherit);
-    
+
         if (null === $videos) {
             return null;
         }
-    
+
         // Random video
         if (null === $index) {
             $index = random_int(0, \count($videos) - 1);
         }
-    
+
         if (!isset($videos[$index])) {
             return null;
         }
-    
+
         return $videos[$index];
     }
 
-    
-    
-    
-    public function findVideosForPage(PageModel $page, bool $inherit = true): ?array
+
+
+
+    public function findForPage(PageModel $page, bool $inherit = true): ?array
     {
         if (!isset(static::$videosCache[$page->id])) {
             static::$videosCache[$page->id] = false;
-    
+
             $videos = $this->parsePageVideos($page);
            // print_r($videos);
             if (!empty($videos)) {
@@ -58,7 +58,7 @@ class PagevideoHelper
             } else {
                 $page->loadDetails();
                 $parentPages = PageModel::findMultipleByIds(array_reverse($page->trail));
-    
+
                 if (null !== $parentPages) {
                     foreach ($parentPages as $parentPage) {
                         $videos = $this->parsePageVideos($parentPage);
@@ -68,14 +68,14 @@ class PagevideoHelper
                                 'videos' => $videos,
                                 'inherited' => true,
                             ];
-    
+
                             break;
                         }
                     }
                 }
             }
         }
-    
+
         if (false === static::$videosCache[$page->id] || (!$inherit && static::$videosCache[$page->id]['inherited'])) {
             return null;
         }
@@ -83,78 +83,49 @@ class PagevideoHelper
         return static::$videosCache[$page->id]['videos'];
     }
 
-    
-    
-    
+
+
+
     private function parsePageVideos(PageModel $page): array
     {
         if (empty($page->pageVideo)) {
             return [];
         }
-    
+
         $videos = [];
         $files = FilesModel::findMultipleByUuids(StringUtil::deserialize($page->pageVideo, true));
-        
+
         if (null !== $files) {
             foreach ($files as $file) {
                 $objFile = new File($file->path);
-               // print_r($objFile->isImage);
-               /*
-               print_r($objFile);
-                if (!$objFile->isImage) {
-                    continue;
-                }
-                */
+
                 $video = $file->row();
-                //$meta = Frontend::getMetaData($file->meta, $page->language);
-    
-                // Use the file name as title if none is given
-               // if (empty($meta['title'])) {
-                //    $meta['title'] = StringUtil::specialchars($objFile->basename);
-                //}
-                /*
-                $image['alt'] = $meta['alt'];
-                $image['imageUrl'] = $meta['link'];
-                $image['caption'] = $meta['caption'];
-                $image['title'] = $meta['title'];
-                $image['meta'] = $meta;
-    
-                if ($page->pageImageOverwriteMeta) {
-                    $image['alt'] = $page->pageImageAlt;
-                    $image['title'] = $page->pageImageTitle;
-                    $image['imageUrl'] = $page->pageImageUrl;
-    
-                    if (!empty($page->pageImageUrl)) {
-                        $image['hasLink'] = true;
-                        $image['href'] = $page->pageImageUrl;
-                    }
-                }
-                */
+
                 $videos[] = $video;
             }
-    
+
             $videos = $this->sortVideos($videos, $page);
-            
+
         }
         return $videos;
-        
-    }
-    
 
-    
-    
-    
+    }
+
+
+
+
+
     private function sortVideos(array $videos, PageModel $pageModel): array
     {
         $order = StringUtil::deserialize($pageModel->pageVideoOrder);
-    
+
         if (empty($order) || !\is_array($order)) {
             return $videos;
         }
-    
+
         // Remove all values
         $order = array_map(static function (): void {}, array_flip($order));
-    
+
         // Move the matching elements to their position in $order
         foreach ($videos as $k => $v) {
             if (\array_key_exists($v['uuid'], $order)) {
@@ -162,17 +133,17 @@ class PagevideoHelper
                 unset($videos[$k]);
             }
         }
-    
+
         // Append the left-over images at the end
         if (!empty($videos)) {
             $order = array_merge($order, array_values($videos));
         }
-    
+
         // Remove empty (unreplaced) entries
         return array_values(array_filter($order));
     }
-    
-    
-    
-    
+
+
+
+
 }
