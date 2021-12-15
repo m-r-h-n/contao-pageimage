@@ -101,6 +101,12 @@ class PagevideoHelper
 
                 $video = $file->row();
 
+                if ($page->pageImageOverwriteMeta) {
+                    $video['alt'] = $page->pageImageAlt;
+                    $video['linkTitle'] = $page->pageImageTitle;
+                    $video['href'] = $page->pageImageUrl;
+                }
+
                 $videos[] = $video;
             }
 
