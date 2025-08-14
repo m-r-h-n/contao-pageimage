@@ -27,13 +27,17 @@
         "forum": "https://community.contao.org"
     },
     "require": {
-        "php": "^7.4 || ^8.0",
-        "contao/core-bundle": "^4.9",
-        "doctrine/dbal": "^2.11 || ^3"
+        "php": "^8.1",
+        "contao/core-bundle": "^4.13 || ^5.0",
+        "doctrine/dbal": "^3.3",
+        "symfony/config": "^5 || ^6 || ^7",
+        "symfony/dependency-injection": "^5 || ^6 || ^7",
+        "symfony/http-foundation": "^5 || ^6 || ^7",
+        "symfony/http-kernel": "^5 || ^6 || ^7"
     },
     "require-dev": {
         "contao/manager-plugin": "^2.0",
-        "contao/easy-coding-standard": "^3.0"
+        "terminal42/contao-build-tools": "dev-main"
     },
     "conflict": {
         "contao/manager-plugin": "<2.0 || >=3.0"
